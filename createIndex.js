@@ -5,12 +5,12 @@
 const fs = require('fs');
 
 //let fatString = [];
-	let dictionary = fs.readFileSync("./bigDictionary.txt").toString();
+	let dictionary = fs.readFileSync("./smallDictionary.txt").toString();
 	dictionary = dictionary.split("\r\n");
 	for (let i = 0; i < dictionary.length; i++) {
 		let throwawayString = dictionary[i].split("");
 		quickSort(throwawayString,0,throwawayString.length-1);
-		dictionary[i] = throwawayString.join("");
+		dictionary[i] = throwawayString.join("") + " | " + dictionary[i];
 	}
 	quickSort(dictionary, 0, dictionary.length-1);
 	//fs.writeFileSync("./myIndex.txt", fatString);
@@ -26,12 +26,30 @@ const fs = require('fs');
 // Hmm...
 // We wish you well!
 
-console.log("\nHey!");
+console.log("\n");
+
+query("The Legend of 1900");
+function query(str) {
+	str = str.split('');
+	quickSort(str,0,str.length-1);
+	str = str.join('');
+
+	let tempDict;
+	let matchList = [];
+	for (let dict = 0; dict < dictionary.length; dict++) {
+		tempDict = dictionary[dict].split(' | ');
+		if (tempDict[0] == str) {
+			matchList.push(tempDict[1]);
+
+		}
+
+
+	}
+console.log(matchList);
+}
 
 
 
-
-const extra = require('./extra');
 
 // function beatChallenge() {
 // 	let bigString = extra.randomString();
